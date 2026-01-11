@@ -3,7 +3,11 @@ import Avatar from "../../../assets/avatar-default.png";
 import DropdownMenu from "./DropdownMenu";
 import { useState } from "react";
 
-function Header() {
+type Props = {
+  onLogoutSuccess: () => void;
+};
+
+function Header({ onLogoutSuccess }: Props) {
   const [showDropdownMenu, setShowDropdownMenu] = useState(false);
 
   return (
@@ -20,7 +24,10 @@ function Header() {
               alt="User Profile Picture"
               onClick={() => setShowDropdownMenu(!showDropdownMenu)}
             />
-            <DropdownMenu showMenu={showDropdownMenu} />
+            <DropdownMenu
+              showMenu={showDropdownMenu}
+              onLogoutSuccess={onLogoutSuccess}
+            />
           </div>
         </li>
       </ul>

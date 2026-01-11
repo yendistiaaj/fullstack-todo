@@ -72,7 +72,7 @@ nav li:last-child img {
   text-align: center;
 }
 
-.dropdown-item a {
+.dropdown-item button {
   width: 100%;
   padding: 10px 16px;
   text-decoration: none;
@@ -81,9 +81,10 @@ nav li:last-child img {
   background: #ef4444;
   color: white;
   border-radius: 8px;
+  border: none;
 }
 
-.dropdown-item a:hover {
+.dropdown-item button:hover {
   background: #dc2626;
 }
 

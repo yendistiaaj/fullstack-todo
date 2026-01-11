@@ -1,12 +1,21 @@
 import "./App.css";
-import MainLayout from "./layouts/MainLayout";
 import TodoPage from "./pages/TodoPage";
+import LoginPage from "./pages/LoginPage";
+import { useState } from "react";
+
+type Page = "login" | "register" | "todo";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState<Page>("todo");
+
   return (
-    <MainLayout>
-      <TodoPage />
-    </MainLayout>
+    <div className="App">
+      {currentPage === "login" ? (
+        <LoginPage onLoginSuccess={() => setCurrentPage("todo")} />
+      ) : (
+        <TodoPage onLogoutSuccess={() => setCurrentPage("login")} />
+      )}
+    </div>
   );
 }
 
