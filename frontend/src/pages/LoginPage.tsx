@@ -1,14 +1,15 @@
 type Props = {
   onLoginSuccess: () => void;
+  onGoToRegister: () => void;
 };
 
-function LoginPage({ onLoginSuccess }: Props) {
+function LoginPage({ onLoginSuccess, onGoToRegister }: Props) {
   return (
     <>
-      <div className="login-main">
-        <div className="login-card">
-          <h2 className="login-title">Log In</h2>
-          <p className="login-subtitle">
+      <div className="auth-main">
+        <div className="auth-card">
+          <h2 className="auth-title">Log In</h2>
+          <p className="auth-subtitle">
             Sign in to manage your tasks and stay productive.
           </p>
 
@@ -19,13 +20,14 @@ function LoginPage({ onLoginSuccess }: Props) {
             <label htmlFor="password-field">Password</label>
             <input id="password-field" type="password" name="password-field" />
 
-            <button type="submit" className="login-button">
+            <button type="submit" className="auth-button">
               Login
             </button>
           </form>
 
-          <p className="login-footer-text">
-            Don’t have an account? <a href="#">Register here!</a>
+          <p className="auth-footer-text">
+            Don’t have an account?{" "}
+            <span onClick={onGoToRegister}>Register here!</span>
           </p>
         </div>
       </div>
