@@ -17,7 +17,7 @@ function TodoForm({ addTodo }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="horizontal-form">
       <input
         type="text"
         value={title}

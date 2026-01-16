@@ -9,56 +9,15 @@ body {
     Ubuntu, Cantarell, sans-serif;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   min-height: 100vh;
-  padding: 20px;
-}
-
-form {
   display: flex;
-  gap: 12px;
-  margin-bottom: 30px;
+  justify-content: center;
+  align-items: center;
 }
 
-input[type="text"] {
-  flex: 1;
-  padding: 16px 20px;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  font-size: 16px;
-  transition: border-color 0.2s;
-}
-
-input[type="text"]:focus {
-  outline: none;
-  border-color: #6366f1;
-}
-
-input[type="date"] {
-  padding: 16px 20px;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  font-size: 16px;
-  transition: border-color 0.2s;
-}
-
-input[type="date"]:focus {
-  outline: none;
-  border-color: #6366f1;
-}
-
-button[type="submit"] {
-  padding: 16px 28px;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-button[type="submit"]:hover {
-  transform: translateY(-1px);
+.App {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
 @media (max-width: 480px) {

@@ -8,7 +8,7 @@ type Props = {
 
 function TodoList({ todos, onToggleDone, onDelete }: Props) {
   return (
-    <div>
+    <div className="todo-scroll">
       {todos.map((todo, index) => (
         <div
           key={index}
