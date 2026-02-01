@@ -60,6 +60,7 @@ function TodoPage({ onLogoutSuccess }: Props) {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchTodos(filter);
   }, [filter]);
 
