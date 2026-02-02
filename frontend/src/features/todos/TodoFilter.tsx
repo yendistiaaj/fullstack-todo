@@ -1,4 +1,4 @@
-// sync this with enum.py in backend/app
+// sync this with todo_enums.py in backend/todo/
 
 export const TodoFilterEnum = {
   ALL: "all",
