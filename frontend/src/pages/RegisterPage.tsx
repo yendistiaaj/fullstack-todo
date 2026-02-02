@@ -1,37 +1,56 @@
+import api from "../api";
+
+import AuthLayout from "../features/auth/components/AuthLayout";
+
 type Props = {
   onRegisterSuccess: () => void;
   onGoToLogin: () => void;
 };
 
 function RegisterPage({ onRegisterSuccess, onGoToLogin }: Props) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const email = (form.elements.namedItem("email-field") as HTMLInputElement)
+      .value;
+    const password = (
+      form.elements.namedItem("password-field") as HTMLInputElement
+    ).value;
+
+    try {
+      const res = await api.post("/auth/register", { email, password });
+      const { user } = res.data;
+      console.log(user.email);
+      onRegisterSuccess();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
-    <>
-      <div className="auth-main">
-        <div className="auth-card">
-          <h2 className="auth-title">Register</h2>
-          <p className="auth-subtitle">
-            Create an account to start managing your tasks.
-          </p>
+    <AuthLayout
+      title="Register"
+      subtitle="Create an account to start managing your tasks."
+      footer={
+        <>
+          Already have an account?{" "}
+          <span onClick={onGoToLogin}>Login here!</span>
+        </>
+      }
+    >
+      <form onSubmit={handleSubmit} className="vertical-form">
+        <label htmlFor="email-field">Email</label>
+        <input id="email-field" type="email" name="email-field" />
 
-          <form onSubmit={onRegisterSuccess} className="vertical-form">
-            <label htmlFor="email-field">Email</label>
-            <input id="email-field" type="email" name="email-field" />
+        <label htmlFor="password-field">Password</label>
+        <input id="password-field" type="password" name="password-field" />
 
-            <label htmlFor="password-field">Password</label>
-            <input id="password-field" type="password" name="password-field" />
-
-            <button type="submit" className="auth-button">
-              Register
-            </button>
-          </form>
-
-          <p className="auth-footer-text">
-            Already have an account?{" "}
-            <span onClick={onGoToLogin}>Login here!</span>
-          </p>
-        </div>
-      </div>
-    </>
+        <button type="submit" className="auth-button">
+          Register
+        </button>
+      </form>
+    </AuthLayout>
   );
 }
 
