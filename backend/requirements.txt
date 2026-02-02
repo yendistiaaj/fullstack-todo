@@ -4,3 +4,5 @@ pydantic
 pyJWT
 bcrypt
 SQLAlchemy
+pydantic-settings
+python-multipart
