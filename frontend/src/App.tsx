@@ -7,7 +7,7 @@ import { useState } from "react";
 type Page = "login" | "register" | "todo";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<Page>("todo");
+  const [currentPage, setCurrentPage] = useState<Page>("login");
 
   return (
     <div className="App">
