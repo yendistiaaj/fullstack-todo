@@ -6,7 +6,7 @@ import Header from "../features/todos/components/Header";
 import { useEffect, useState } from "react";
 import api from "../api";
 import type { AxiosResponse } from "axios";
-import type { Todo, TodosResponse } from "../types";
+import type { Todo, TodosResponse } from "../features/todos/TodoTypes";
 import type { TodoFilter } from "../features/todos/TodoFilter";
 import { TodoFilterEnum } from "../features/todos/TodoFilter";
 
@@ -31,28 +31,31 @@ function TodoPage({ onLogoutSuccess }: Props) {
 
   const addTodo = async (title: string, due_date: string) => {
     try {
-      await api.post("/todos", { title, due_date, done: false });
+      await api.post("/todos", {
+        title,
+        due_date,
+        done: false,
+      });
       await fetchTodos(filter);
     } catch (error) {
       console.log("Error adding todos", error);
     }
   };
 
-  const toggleTodoDone = async (index: number) => {
-    const todo = todos[index];
+  const toggleTodoDone = async (todo: Todo) => {
     const updatedTodo = { ...todo, done: !todo.done };
 
     try {
-      await api.patch(`/todos/${index}`, updatedTodo);
+      await api.patch(`/todos/${todo.id}`, updatedTodo);
       await fetchTodos(filter);
     } catch (error) {
       console.log("Error updating todo", error);
     }
   };
 
-  const deleteTodo = async (index: number) => {
+  const deleteTodo = async (todo: Todo) => {
     try {
-      await api.delete(`/todos/${index}`);
+      await api.delete(`/todos/${todo.id}`);
       await fetchTodos(filter);
     } catch (error) {
       console.log("Error deleting todo", error);
