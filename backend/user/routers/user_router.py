@@ -17,7 +17,7 @@ def list_users():
     return Users(users=users)
 
 @user_router.get("/users/{email}", response_model=User)
-def get_user_by_id(email: str):
+def get_user_by_email(email: str):
     user = service_get_user(email)
     if not user:
         raise HTTPException(
