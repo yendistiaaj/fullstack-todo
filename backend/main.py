@@ -14,6 +14,10 @@ openapi_tags = [
     {
         "name": "User",
         "description": "User operations"
+    },
+    {
+        "name": "Health",
+        "description": "Health check"
     }
 ]
 
@@ -29,6 +33,11 @@ if settings.BACKEND_CORS_ORIGINS:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+@app.get("/health", tags=['Health'])
+def health():
+    return {"status": "ok"}
+
 
 app.include_router(auth_router, prefix='/api')
 app.include_router(user_router, prefix='/api', tags=['User'])
