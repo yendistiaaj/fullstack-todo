@@ -20,11 +20,15 @@ function RegisterPage({ onRegisterSuccess, onGoToLogin }: Props) {
 
     try {
       const res = await api.post("/auth/register", { email, password });
-      const { user } = res.data;
-      console.log(user.email);
+      const user = res.data;
+      if (import.meta.env.DEV) {
+        console.log("Registered user:", user.email);
+      }
       onRegisterSuccess();
     } catch (err) {
-      console.error(err);
+      if (import.meta.env.DEV) {
+        console.error(err);
+      }
     }
   }
 
