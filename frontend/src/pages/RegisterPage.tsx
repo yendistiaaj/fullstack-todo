@@ -1,13 +1,15 @@
+import axios from "axios";
 import api from "../api";
 
 import AuthLayout from "../features/auth/components/AuthLayout";
 
 type Props = {
-  onRegisterSuccess: () => void;
+  onRegisterSuccess: (msg: string) => void;
   onGoToLogin: () => void;
+  onError: (msg: string) => void;
 };
 
-function RegisterPage({ onRegisterSuccess, onGoToLogin }: Props) {
+function RegisterPage({ onRegisterSuccess, onGoToLogin, onError }: Props) {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -24,10 +26,14 @@ function RegisterPage({ onRegisterSuccess, onGoToLogin }: Props) {
       if (import.meta.env.DEV) {
         console.log("Registered user:", user.email);
       }
-      onRegisterSuccess();
+      onRegisterSuccess("Register success. You can log in now.");
     } catch (err) {
       if (import.meta.env.DEV) {
-        console.error(err);
+        if (axios.isAxiosError(err) && err.response?.status === 400) {
+          onError("Email already registered.");
+        } else {
+          onError("Register failed. Please try again.");
+        }
       }
     }
   }

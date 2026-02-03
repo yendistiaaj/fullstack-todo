@@ -1,13 +1,15 @@
+import axios from "axios";
 import api from "../api";
 
 import AuthLayout from "../features/auth/components/AuthLayout";
 
 type Props = {
-  onLoginSuccess: () => void;
+  onLoginSuccess: (token: string) => void;
   onGoToRegister: () => void;
+  onError: (msg: string) => void;
 };
 
-function LoginPage({ onLoginSuccess, onGoToRegister }: Props) {
+function LoginPage({ onLoginSuccess, onGoToRegister, onError }: Props) {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -26,11 +28,25 @@ function LoginPage({ onLoginSuccess, onGoToRegister }: Props) {
       const res = await api.post("/auth/login", body, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       });
-      const { access_token } = res.data;
+      if (res.status !== 200) {
+        throw new Error("Unexpected response status");
+      }
+
+      const { access_token } = res.data || {};
+
+      if (!access_token) {
+        onError("Login failed. Please try again.");
+        return;
+      }
+
       localStorage.setItem("access_token", access_token);
-      onLoginSuccess();
+      onLoginSuccess(access_token);
     } catch (err) {
-      console.error(err);
+      if (axios.isAxiosError(err) && err.response?.status === 401) {
+        onError("Incorrect email or password.");
+      } else {
+        onError("Login failed. Please try again.");
+      }
     }
   }
   return (
