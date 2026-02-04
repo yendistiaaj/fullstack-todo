@@ -1,8 +1,8 @@
-from sqlalchemy import Boolean, Column, Date, Integer, String, create_engine
+from sqlalchemy import Boolean, Column, Integer, String, create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-engine = create_engine("sqlite:///todo.db", connect_args={"check_same_thread": False})
+engine = create_engine("sqlite:///app.db", connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
