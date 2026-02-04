@@ -21,7 +21,7 @@ openapi_tags = [
     }
 ]
 
-app = FastAPI(openapi_tags=openapi_tags)
+app = FastAPI(title="My Todo-List", openapi_tags=openapi_tags)
 
 if settings.BACKEND_CORS_ORIGINS:
     app.add_middleware(
