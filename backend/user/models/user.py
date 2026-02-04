@@ -1,9 +1,16 @@
 from typing import List
 from pydantic import BaseModel
 
-class User(BaseModel):
+class UserCreate(BaseModel):
     email: str
     password: str
 
-class Users(BaseModel):
-    users: List[User]
+class UserResponse(BaseModel):
+    email: str
+    class Config:
+        from_attributes = True
+
+class UsersResponse(BaseModel):
+    users: List[UserResponse]
+    class Conifg:
+        from_attributes = True

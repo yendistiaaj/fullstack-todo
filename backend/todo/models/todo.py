@@ -1,17 +1,21 @@
 from pydantic import BaseModel
 from typing import List
 
-class TodoBase(BaseModel):
+class TodoCreate(BaseModel):
     title: str
     due_date: str
     done: bool
 
-class TodoCreate(TodoBase):
-    pass
+class TodoResponse(BaseModel):
+    id: int
+    title: str
+    due_date: str
+    done: bool
+    owner_email: str    
+    class Config:
+        from_attributes = True
 
-class Todo(TodoBase):
-    id: int | None = None
-    owner_email: str
-
-class Todos(BaseModel):
-    todos: List[Todo]
+class TodosResponse(BaseModel):
+    todos: List[TodoResponse]
+    class Config:
+        from_attributes = True

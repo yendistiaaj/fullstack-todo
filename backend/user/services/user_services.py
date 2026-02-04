@@ -1,26 +1,26 @@
 from typing import List, Optional
 
+from sqlalchemy.orm import Session
+
 from auth.utils.auth_utils import get_password_hash
-from user.models.user import User
+from database import User
+from user.models.user import UserCreate, UserResponse
 
+def get_users(db : Session) -> List[User]:
+    return db.query(User).all()
 
-memory_db = {
-    "users": []
-}
+def get_user_by_email(email: str, db: Session) -> Optional[UserResponse]:
+    return db.query(User).filter(User.email == email).first()
 
-def get_users() -> List[User]:
-    return memory_db["users"]
-
-def get_user_by_email(email: str) -> Optional[User]:
-    users = memory_db["users"]
-    return next((user for user in users if user.email == email), None)
-
-def create_user(user: User) -> User:
+def create_user(user: UserCreate, db: Session) -> UserResponse:
     hashed = get_password_hash(user.password)
     new_user = User(email=user.email, password=hashed)
-    memory_db["users"].append(new_user)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
     return new_user
 
-def delete_user(user: User) -> None:
-    users = memory_db["users"]
-    users.remove(user)
+def delete_user(user: UserResponse, db: Session) -> None:
+    db.delete(user)
+    db.commit()
+    db.refresh(user)
