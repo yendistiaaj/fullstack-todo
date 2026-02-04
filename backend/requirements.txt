@@ -6,3 +6,4 @@ bcrypt
 SQLAlchemy
 pydantic-settings
 python-multipart
+gunicorn
