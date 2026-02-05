@@ -33,22 +33,22 @@ function App() {
     setIsLoggedIn(getIsTokenValid(token));
   }, []);
 
-  const handleAuthSuccess = (token: string) => {
+  const handleSuccess = (token: string) => {
     localStorage.setItem("access_token", token);
     setIsLoggedIn(true);
     openModal(ModalTypeEnum.SUCCESS, "Success", "You are now logged in.");
   };
 
-  const handleAuthError = (msg: string) => {
+  const handleError = (msg: string) => {
     openModal(ModalTypeEnum.ERROR, "Error", msg);
   };
 
   const authContent =
     authMode === "login" ? (
       <LoginPage
-        onLoginSuccess={handleAuthSuccess}
+        onLoginSuccess={handleSuccess}
         onGoToRegister={() => setAuthMode("register")}
-        onError={handleAuthError}
+        onError={handleError}
       />
     ) : (
       <RegisterPage
@@ -56,7 +56,7 @@ function App() {
           openModal(ModalTypeEnum.SUCCESS, "Success", msg)
         }
         onGoToLogin={() => setAuthMode("login")}
-        onError={handleAuthError}
+        onError={handleError}
       />
     );
 
@@ -74,6 +74,7 @@ function App() {
               "You have logged out from your account.",
             );
           }}
+          onError={handleError}
         />
       ) : (
         authContent
