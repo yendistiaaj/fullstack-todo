@@ -12,9 +12,10 @@ import { TodoFilterEnum } from "../features/todos/TodoFilter";
 
 type Props = {
   onLogoutSuccess: () => void;
+  onError: (msg: string) => void;
 };
 
-function TodoPage({ onLogoutSuccess }: Props) {
+function TodoPage({ onLogoutSuccess, onError }: Props) {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useState<TodoFilter>(TodoFilterEnum.ALL);
 
@@ -25,7 +26,7 @@ function TodoPage({ onLogoutSuccess }: Props) {
       });
       setTodos(data.todos);
     } catch (error) {
-      console.error("Error fetching todos", error);
+      onError(`Error fetching todos - ${error}`);
     }
   };
 
@@ -38,7 +39,7 @@ function TodoPage({ onLogoutSuccess }: Props) {
       });
       await fetchTodos(filter);
     } catch (error) {
-      console.log("Error adding todos", error);
+      onError(`Error adding todos - \n${error}`);
     }
   };
 
@@ -49,7 +50,7 @@ function TodoPage({ onLogoutSuccess }: Props) {
       await api.patch(`/todos/${todo.id}`, updatedTodo);
       await fetchTodos(filter);
     } catch (error) {
-      console.log("Error updating todo", error);
+      onError(`Error updating todos - \n${error}`);
     }
   };
 
@@ -58,7 +59,7 @@ function TodoPage({ onLogoutSuccess }: Props) {
       await api.delete(`/todos/${todo.id}`);
       await fetchTodos(filter);
     } catch (error) {
-      console.log("Error deleting todo", error);
+      onError(`Error deleting todos - \n${error}`);
     }
   };
 
