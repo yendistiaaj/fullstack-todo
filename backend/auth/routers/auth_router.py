@@ -8,7 +8,7 @@ from auth.models.token import Token
 from auth.services.auth_services import authenticate_user, create_access_token
 from database import get_db
 from user.services.user_services import create_user, get_user_by_email
-from user.models.user import UserCreate, UserResponse
+from user.schemas.user import UserCreate, UserResponse
 
 
 auth_router = APIRouter(

@@ -1,8 +1,9 @@
-from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Query
 from auth.services.auth_services import get_current_user
-from user.models.user import UserResponse
-from todo.models.todo import *
+from database import get_db
+from models import Todo
+from user.schemas.user import UserResponse
+from todo.schemas.todo import *
 from todo.services.todo_services import *
 from todo.todo_enums import TodoFilter
 
@@ -34,7 +35,7 @@ def update_todo_by_id(
     current_user: UserResponse = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    db_todo = get_todo_by_id(id, db)
+    db_todo = db.query(Todo).filter(Todo.id == id).first()
     if not db_todo:
         raise HTTPException(status_code=404, detail="Todo not found")
     
@@ -44,12 +45,12 @@ def update_todo_by_id(
     return update_todo(todo, db_todo, db)
 
 @todo_router.delete("/todos/{id}", response_model=TodoResponse)
-def delete_todo(
+def delete_todo_by_id(
     id: int,
     current_user: UserResponse = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    db_todo = get_todo_by_id(id, db)
+    db_todo = db.query(Todo).filter(Todo.id == id).first()
 
     if not db_todo:
         raise HTTPException(status_code=404, detail="Todo not found")

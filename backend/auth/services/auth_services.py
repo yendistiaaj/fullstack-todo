@@ -8,7 +8,7 @@ from auth.models.token import TokenData
 from auth.utils.auth_utils import verify_password
 from database import get_db
 from core.config_loader import settings
-from user.models.user import UserResponse
+from user.schemas.user import UserResponse
 from user.services.user_services import get_user_by_email
 
 SECRET_KEY = settings.JWT_SECRET_KEY

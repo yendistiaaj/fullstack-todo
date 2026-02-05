@@ -3,8 +3,8 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 
 from auth.utils.auth_utils import get_password_hash
-from database import User
-from user.models.user import UserCreate, UserResponse
+from models import User
+from user.schemas.user import UserCreate, UserResponse
 
 def get_users(db : Session) -> List[User]:
     return db.query(User).all()

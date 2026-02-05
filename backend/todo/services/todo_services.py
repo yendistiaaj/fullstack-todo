@@ -1,14 +1,10 @@
 from typing import List
 
-from fastapi import Depends
 from sqlalchemy.orm import Session
 
-from database import Todo, get_db
-from todo.models.todo import TodoCreate, TodoResponse
+from models import Todo
+from todo.schemas.todo import TodoCreate, TodoResponse
 from todo.todo_enums import TodoFilter
-
-def get_todo_by_id(id: int, db: Session):
-    return db.query(Todo).filter(Todo.id == id).first()
 
 def get_todos_by_filter(
     db: Session,
@@ -43,7 +39,7 @@ def update_todo(todo: TodoResponse, db_todo: TodoResponse, db: Session) -> TodoR
     db.refresh(db_todo)
     return db_todo
 
-def delete_todo(todo: TodoResponse, db: Session) -> TodoResponse:
+def delete_todo(todo: TodoResponse, db: Session):
     db.delete(todo)
     db.commit()
-    db.refresh(todo)
+    return todo
