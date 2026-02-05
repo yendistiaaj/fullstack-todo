@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from auth.routers.auth_router import auth_router
+from database import Base, engine
 from todo.routers.todo_router import todo_router
 from user.routers.user_router import user_router
 from core.config_loader import settings
@@ -21,6 +22,8 @@ openapi_tags = [
     }
 ]
 
+Base.metadata.create_all(bind=engine, checkfirst=True)
+    
 app = FastAPI(title="My Todo-List", openapi_tags=openapi_tags)
 
 if settings.BACKEND_CORS_ORIGINS:
