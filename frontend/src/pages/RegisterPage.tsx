@@ -28,12 +28,10 @@ function RegisterPage({ onRegisterSuccess, onGoToLogin, onError }: Props) {
       }
       onRegisterSuccess("Register success. You can log in now.");
     } catch (err) {
-      if (import.meta.env.DEV) {
-        if (axios.isAxiosError(err) && err.response?.status === 400) {
-          onError("Email already registered.");
-        } else {
-          onError("Register failed. Please try again.");
-        }
+      if (axios.isAxiosError(err) && err.response?.status === 400) {
+        onError("Email already registered.");
+      } else {
+        onError("Register failed. Please try again.");
       }
     }
   }
