@@ -15,6 +15,7 @@ A fullstack to-do list application with user authentication. Add, manage, and de
 📁 Project Structure  
 ```
 todo-app/
+├── .github/workflows  # CI/CD workflows
 ├── backend/           # FastAPI backend (API, auth, database)
 ├── frontend/          # React + TypeScript frontend
 ├── docker-compose.yml # Multi-container setup
@@ -37,5 +38,6 @@ docker pull ghcr.io/yendistiaaj/fullstack-todo:frontend-fe853385f8593d4cdc1013fa
 🌐 Deployed on Render in the following URL:
 * Frontend: `https://todo-list-frontend-latest.onrender.com/`
 * Backend: `https://todo-list-backend-latest.onrender.com/`
+
 
 
