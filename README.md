@@ -22,10 +22,10 @@ todo-app/
 ```
 
 
-⬇️ Installment  
-Install through Docker using the following command line
+⬇️ Install Docker container images using the following command line
 ```
 docker pull ghcr.io/yendistiaaj/fullstack-todo:backend-ad131f2471cbbb03e90d0d92d5757c177dbe4484
+docker pull ghcr.io/yendistiaaj/fullstack-todo:frontend-fe853385f8593d4cdc1013fa51f71b92c905c7f1
 ```
 
 
@@ -34,8 +34,8 @@ docker pull ghcr.io/yendistiaaj/fullstack-todo:backend-ad131f2471cbbb03e90d0d92d
 <img width="2790" height="1429" alt="Todo page screen" src="https://github.com/user-attachments/assets/72fb1a01-12a1-4060-aa4d-b5a0976759cb" />
 
 
-🌐 Deployment  
-Deployed on Render in the following URL:
+🌐 Deployed on Render in the following URL:
 * Frontend: `https://todo-list-frontend-latest.onrender.com/`
 * Backend: `https://todo-list-backend-latest.onrender.com/`
+
 
